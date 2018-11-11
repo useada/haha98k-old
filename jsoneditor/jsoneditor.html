@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>json editor</title>
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link href="./css/jsoneditor.css" rel="stylesheet" type="text/css">
+  <link href="./css/darktheme.css" rel="stylesheet" type="text/css">
+  <script src="./js/jsoneditor.js"></script>
+
+  <style type="text/css">
+    body {
+      font-family: sans-serif;
+    }
+
+    #jsonCodeEditor,
+    #jsonTreeEditor {
+    }
+
+    #nav {
+    }
+  </style>
+</head>
+<body>
+
+<nav id="nav" class="navbar navbar-expand-lg navbar-dark" style="background-color: #4b4b4b;">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#" style="color: lightyellow">haha98k.com</a>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Json编辑<span class="sr-only">(current)</span></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Go lang结构体Tag编辑</a>
+      </li>
+
+      <li class="nav-item">
+      <a class="nav-link" href="#">帮助</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div style="height: 2px; width: 100%; background-color: #5f5f64"></div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm" style="padding-left: 0px; padding-right: 0px">
+          <div id="jsonCodeEditor"></div>
+    </div>
+    <div class="col-sm" style="padding-left: 0px; padding-right: 0px">
+      <div id="jsonTreeEditor"></div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+  // create code editor
+  var jsonCodeEditor = new JSONEditor(document.getElementById('jsonCodeEditor'), {
+    modes: ['code'],
+    onChangeText: function (jsonString) {
+      jsonTreeEditor.updateText(jsonString);
+    }
+  });
+
+  // create tree editor
+  var jsonTreeEditor = new JSONEditor(document.getElementById('jsonTreeEditor'), {
+    onChangeText: function (jsonString) {
+      jsonCodeEditor.updateText(jsonString);
+    }
+  });
+
+  function getWinHeight () {
+    //获取浏览器窗口高度
+    var winHeight=0;
+
+    if (window.innerHeight)
+      winHeight = window.innerHeight;
+    else if ((document.body) && (document.body.clientHeight))
+      winHeight = document.body.clientHeight;
+
+    //通过Document对body进行检测，获取浏览器可视化高度
+    if (document.documentElement && document.documentElement.clientHeight)
+      winHeight = document.documentElement.clientHeight;
+
+    return winHeight;
+  }
+
+  function getWinWidth () {
+    var winWidth = 0;
+
+    if (window.innerWidth)
+      winWidth = window.innerWidth;
+    else if ((document.body) && (document.body.clientWidth))
+      winWidth = document.body.clientWidth;
+
+    if (document.documentElement && document.documentElement.clientWidth)
+      winWidth = document.documentElement.clientWidth;
+
+    return winWidth;
+  }
+
+  function editorSize(){
+    var winWidth = getWinWidth();
+    var winHeight = getWinHeight();
+
+    var nav = document.getElementById("nav");
+    var navHeight = nav.clientHeight||nav.offsetHeight;
+    var editorHeight = winHeight - navHeight - 2;
+    var editorWidth = winWidth / 2;
+
+    document.getElementById("jsonCodeEditor").style.height= editorHeight +"px";
+    document.getElementById("jsonTreeEditor").style.height= editorHeight +"px";
+
+    document.getElementById("jsonCodeEditor").style.width= editorWidth +"px";
+    document.getElementById("jsonTreeEditor").style.width= editorWidth +"px";
+  }
+
+  editorSize();
+  window.onresize=editorSize;
+
+  // set initial data in both editors
+  var json = {
+    'array': [1, 2, 3],
+    'boolean': true,
+    'null': null,
+    'number': 123,
+    'object': {'a': 'b', 'c': 'd'},
+    'string': 'Hello World'
+  };
+  jsonCodeEditor.set(json);
+  jsonTreeEditor.set(json);
+</script>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
