@@ -1,5 +1,6 @@
 <template>
   <v-app dark>
+  <!-- <v-app> -->
     <v-navigation-drawer
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -86,21 +87,23 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        clipped: false,
-        drawer: true,
-        fixed: false,
-        items: [
-          { icon: 'apps', title: 'Welcome', to: '/' },
-          { icon: 'bubble_chart', title: 'Inspire', to: '/inspire' }
-        ],
-        miniVariant: false,
-        right: true,
-        rightDrawer: false,
-        title: 'Vuetify.js'
-      }
+export default {
+  data() {
+    return {
+      clipped: false,
+      drawer: true,
+      fixed: false,
+      items: [
+        { icon: 'apps', title: 'Welcome', to: '/' },
+        { icon: 'apps', title: 'json编辑', to: '/json_editor' },
+        { icon: 'bubble_chart', title: '帮助', to: '/help' }
+      ],
+      miniVariant: true,
+      right: true,
+      rightDrawer: false,
+      title: 'ujx.net'
+      // title: 'Vuetify.js'
     }
   }
+}
 </script>
