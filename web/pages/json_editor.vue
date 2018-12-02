@@ -44,7 +44,7 @@ export default {
     }
   },
   mounted: function() {
-    console.log("---------------created--------------");
+    // console.log("---------------created--------------");
     this.initEditor();
   },
   methods: {
@@ -122,7 +122,7 @@ export default {
         editorWidth + "px";
     },
     initEditor () {
-      console.log("---------------initEditor--------------");
+      // console.log("---------------initEditor--------------");
       this.loadScript("/jsoneditor.min.js", this.initEditorCallback);
     },
     initEditorCallback () {
