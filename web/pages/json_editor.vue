@@ -130,7 +130,7 @@ export default {
       var jsonCodeEditor = new JSONEditor(
         document.getElementById("jsonCodeEditor"),
         {
-          modes: ["code"],
+          mode: "code",
           onChangeText: function (jsonString) {
             jsonTreeEditor.updateText(jsonString);
           }
@@ -141,8 +141,9 @@ export default {
       var jsonTreeEditor = new JSONEditor(
         document.getElementById("jsonTreeEditor"),
         {
-          onChangeText: function (jsonString) {
-            jsonCodeEditor.updateText(jsonString);
+          mode: "tree",
+          onChangeJSON: function (json) {
+            jsonCodeEditor.update(json);
           }
         }
       );
